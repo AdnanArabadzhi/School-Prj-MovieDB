@@ -12,6 +12,7 @@ export class MoviesComponent implements OnInit {
   popularMovies: Array<Movie>;
   inTheaterMovies: Array<Movie>;
   singleMovie: Movie;
+  message = null;
 
   constructor(private movieService: MovieService) { }
 
@@ -24,6 +25,11 @@ export class MoviesComponent implements OnInit {
     this.movieService.getIntheaterMovies().subscribe(data => {
       this.inTheaterMovies = data['results'].slice(7, 13);
     })
+  }
+
+  fromChild(event) {
+    console.log(event);
+    this.message = event;
   }
 
 }
