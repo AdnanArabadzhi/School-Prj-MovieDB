@@ -7,15 +7,30 @@
 
 <h1>IN THEATER MOVIES</h1>
 <div class="row">
-   <div class="col-lg-2" *ngFor="let movie of inTheaterMovies">
+   <div class="col-lg-2" *ngFor="let movie of intheaterMovies">
        <app-movie [movie]="movie" (clickButtonEmitter)="fromChild($event)"></app-movie>
    </div>
 </div>
 
-<div class="row" *ngIf="message">
+<h1>BEST KIDS MOVIES</h1>
+<div class="row">
+   <div class="col-lg-2" *ngFor="let movie of popularKidsMovies">
+       <app-movie [movie]="movie" (clickButtonEmitter)="fromChild($event)"></app-movie>
+   </div>
+</div>
+
+<h1>DRAMA MOVIES</h1>
+<div class="row">
+   <div class="col-lg-2" *ngFor="let movie of bestDramaMovies">
+       <app-movie [movie]="movie" (clickButtonEmitter)="fromChild($event)"></app-movie>
+   </div>
+</div>
+
+<div class="row" *ngIf="message">   
 <div class="col-lg-4"></div>
 <div class="col-lg-4">
-<h1> {{ message }}</h1>
+{{message}}
 </div>
 <div class="col-lg-4"></div>
+
 </div>

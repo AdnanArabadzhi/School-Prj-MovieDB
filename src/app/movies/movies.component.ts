@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import Movie from '../models/Movie';
 import { MovieService } from '../services/movie.service';
+import Movie from '../models/Movie';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-movies',
@@ -10,21 +11,40 @@ import { MovieService } from '../services/movie.service';
 export class MoviesComponent implements OnInit {
 
   popularMovies: Array<Movie>;
-  inTheaterMovies: Array<Movie>;
-  singleMovie: Movie;
+  intheaterMovies: Array<Movie>;
+  popularKidsMovies: Array<Movie>;
+  bestDramaMovies: Array<Movie>;
+  singleMovie:Movie;
   message = null;
-
-  constructor(private movieService: MovieService) { }
+  constructor(private moviesService: MovieService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.movieService.getPopularMovies().subscribe(data => {
-      this.popularMovies = data['results'].slice(0, 6);
-      console.log('popular movies:' + this.popularMovies);
-      this.singleMovie = this.popularMovies[0];
-    });
-    this.movieService.getIntheaterMovies().subscribe(data => {
-      this.inTheaterMovies = data['results'].slice(7, 13);
-    })
+    const [
+      popular,
+      theaters,
+      kids,
+      drama
+    ] = this.route.snapshot.data['movies'];
+    this.popularMovies = popular;
+    this.intheaterMovies = theaters;
+    this.popularKidsMovies = kids;
+    this.bestDramaMovies = drama;
+
+  // this.moviesService.getPopularMovies().subscribe(data => {
+  //   this.popularMovies = data;
+  //   this.singleMovie = this.popularMovies[0];
+  // });
+  // this.moviesService.getInTheaterMovies().subscribe(data => {
+  //   this.intheaterMovies = data;
+  // });
+  // this.moviesService.getBestKidsMovies().subscribe(data => {
+  //   this.popularKidsMovies = data;
+  // });
+  // this.moviesService.getDramaMovies().subscribe(data => {
+  //   this.bestDramaMovies = data;
+  // });
+
+
   }
 
   fromChild(event) {
